@@ -1,18 +1,18 @@
 // File: InfoHub-Challenge/client/src/components/QuoteGenerator.jsx
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FaQuoteLeft, FaRedo } from 'react-icons/fa';
+import { QUOTES, getRandomQuote } from '../../api/utils.js';
 
 export default function QuoteGenerator() {
   const [quote, setQuote] = useState(null);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  async function fetchQuote() {
+  function fetchQuote() {
     setLoading(true); setError('');
     try {
-      const res = await axios.get('/api/quote');
-      setQuote(res.data.quote);
+      const q = getRandomQuote(QUOTES);
+      setQuote(q);
     } catch (err) {
       setError('Could not fetch quote.');
     } finally { setLoading(false); }
